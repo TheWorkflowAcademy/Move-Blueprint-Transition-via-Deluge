@@ -1,0 +1,27 @@
+// Get the Blueprint Transition ID
+response = invokeurl
+[
+	url: "https://www.zohoapis.com/crm/v2/CRM_Module_Name/CRM_Record_ID/actions/blueprint"
+	type: GET
+	connection:"crm_oauth_connection"
+];
+info response;
+
+// Push the Blueprint Transition
+dataMap = Map();
+dataMap.put("Notes", "Updated via blueprint");
+blueprint1 = Map();
+blueprint1.put("transition_id", "692969000000981130"); //replace with the correct transition ID
+blueprint1.put("data", dataMap);
+blueprintList = List();
+blueprintList.add(blueprint1);
+param = Map();
+param.put("blueprint", blueprintList);
+response = invokeurl
+[
+	url: "https://www.zohoapis.com/crm/v2/CRM_Module_Name/CRM_Record_ID/actions/blueprint"
+	type: PUT
+	parameters: param.toString()
+	connection:"crm_oauth_connection"
+];
+info response;
